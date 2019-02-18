@@ -26,11 +26,11 @@ Or install it yourself as:
 
 ## Usage
 
-1 - First lets create a new client template:
+1 - Create a new client template:
 
     $ clinvoice init doge-client
 
-This will create a `doge-client-1.yml` data file, lets edit it and generate our pdf invoice.
+This will create a `doge-client-1.yml` data file.
 
 2 - Edit the data file:
 
