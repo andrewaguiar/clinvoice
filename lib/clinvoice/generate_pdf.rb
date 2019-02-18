@@ -4,8 +4,9 @@ require 'prawn'
 require 'prawn/table'
 require 'clinvoice/data'
 require 'clinvoice/helper'
-require 'clinvoice/render_items'
+require 'clinvoice/render_basic_info'
 require 'clinvoice/render_name_and_address'
+require 'clinvoice/render_items'
 require 'clinvoice/render_notes'
 require 'clinvoice/render_title'
 require 'clinvoice/render_total'
@@ -24,6 +25,7 @@ module Clinvoice
 
         pdf.font_size 9
 
+        Clinvoice::RenderBasicInfo.call(pdf, data)
         Clinvoice::RenderNameAndAddress.call(pdf, 'From', data.contractor)
         Clinvoice::RenderNameAndAddress.call(pdf, 'To', data.client)
         Clinvoice::RenderItems.call(pdf, data.items)

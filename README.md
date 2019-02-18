@@ -32,6 +32,32 @@ Or install it yourself as:
 
 This will create a `doge-client-1.yml` data file.
 
+```yaml
+data:
+  id: 1
+  currency: "USD"
+  contractor:
+    name: "You"
+    address:
+      line1: "123, Street, 451233"
+      line2: "City, State, Country"
+  client:
+    name: "Your Client"
+    address:
+      line1: "123, Street, 451233"
+      line2: "City, State, Country"
+  items:
+    -
+      description: "Example service 1"
+      quantity: 1
+      unit_cost: 1.00
+    -
+      description: "Example service 2"
+      quantity: 1
+      unit_cost: 2.00
+  notes: "footer notes optional"
+```
+
 2 - Edit the data file:
 
     $ vim doge-client-1.yml

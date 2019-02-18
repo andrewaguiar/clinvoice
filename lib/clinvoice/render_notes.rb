@@ -5,10 +5,16 @@ module Clinvoice
     def self.call(pdf, notes)
       return unless notes
 
-      pdf.table([['Notes'], [notes]], width: 275) do
-        style(row(0..-1).columns(0..-1), padding: [1, 0, 1, 0], borders: [])
+      pdf.table(items(notes), width: 275) do
         style(row(0).columns(0), font_style: :bold)
+        style(row(0..-1).columns(0..-1), padding: [1, 0, 1, 0], borders: [])
       end
+    end
+
+    private
+
+    def self.items(notes)
+      [['Notes'], [notes]]
     end
   end
 end

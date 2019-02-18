@@ -3,18 +3,12 @@
 module Clinvoice
   module RenderNameAndAddress
     def self.call(pdf, label, entity)
-      pdf.font 'Helvetica', style: :bold
-      pdf.text_box label, at: [8,  pdf.cursor]
-      pdf.font 'Helvetica', style: :normal
+      Clinvoice::Helper.new_bold_line(pdf, label)
+      Clinvoice::Helper.new_line(pdf, entity['name'])
 
-      pdf.move_down 12
-      pdf.text_box entity['name'], at: [8, pdf.cursor]
-      pdf.move_down 12
       if entity['address']
-        pdf.text_box entity['address']['line1'], at: [8, pdf.cursor]
-        pdf.move_down 12
-        pdf.text_box entity['address']['line2'], at: [8, pdf.cursor]
-        pdf.move_down 12
+        Clinvoice::Helper.new_line(pdf, entity['address']['line1'])
+        Clinvoice::Helper.new_line(pdf, entity['address']['line2'])
       end
 
       pdf.move_down 10
