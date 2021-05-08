@@ -14,7 +14,9 @@ module Clinvoice
                 :file
 
     def initialize(file)
-      data = YAML.load_file("#{file}.yml")['data']
+      filename = file.end_with?('.yml') ? file : "#{file}.yml"
+
+      data = YAML.load_file(filename)['data']
 
       @file = file
       @invoice_id = data['id']
