@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'clinvoice/initialize_template'
-require 'clinvoice/generate_next_template'
 require 'clinvoice/generate_pdf'
 require 'clinvoice/version'
 
