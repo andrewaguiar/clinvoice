@@ -5,6 +5,8 @@ require 'yaml'
 module Clinvoice
   class Data
     attr_reader :invoice_id,
+                :issue_date,
+                :due_date,
                 :currency,
                 :contractor,
                 :client,
@@ -23,6 +25,8 @@ module Clinvoice
       @currency = data['currency']
       @issue_date = data['issue_date']
       @contractor = data['contractor']
+      @issue_date = data['issue_date']
+      @due_date = data['due_date']
       @client = data['client']
       @items = data['items'].map do |item|
         [
