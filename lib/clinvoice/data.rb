@@ -40,5 +40,9 @@ module Clinvoice
       @notes = data['notes']
       @total = @items.map(&:last).sum
     end
+
+    def pdf_file
+      "#{file.gsub('.yml', '')}.pdf"
+    end
   end
 end

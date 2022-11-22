@@ -16,7 +16,7 @@ module Clinvoice
     def self.call(file)
       data = Clinvoice::Data.new(file)
 
-      Prawn::Document.generate("#{data.file}.pdf") do |pdf|
+      Prawn::Document.generate(data.pdf_file) do |pdf|
         Prawn::Font::AFM.hide_m17n_warning = true
 
         pdf.font 'Helvetica'
