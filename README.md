@@ -5,7 +5,7 @@ Generates invoices using command line based on yaml files
 ```shell
 clinvoice init <datafile> # starts a new template with id 1 and empty entries.
 clinvoice new <filename> # generates a pdf invoice based on a data file `yml`.
-clinvoice next <datafile> # generates the next data file `yml`.
+clinvoice next <datafile> # generates the next data file `yml`, based on the last one.
 ```
 
 ## Installation
@@ -58,6 +58,14 @@ data:
   notes: "footer notes optional"
 ```
 
+`issue_date` and `due_date` are optional; add them to the data file to have them printed on the invoice:
+
+```yaml
+data:
+  issue_date: "2021-08-11"
+  due_date: "2021-09-11"
+```
+
 2 - Edit the data file:
 
     $ vim doge-client-1.yml
@@ -66,13 +74,20 @@ data:
 
     $ clinvoice new doge-client-1
 
-This will create a `doge-client-1.pdf` file based on the data file `doge-client-1.yml`.
+This will create a `doge-client-1.pdf` file based on the data file `doge-client-1.yml`. You can also pass the filename with the `.yml` extension, e.g. `clinvoice new doge-client-1.yml`.
 
 4 - Generate a next datafile
 
     $ clinvoice next doge-client
 
-This will create a `doge-client-2.yml` data file, based on the last data file id + 1.
+This will create a `doge-client-2.yml` data file, based on the last data file:
+
+- `id` is incremented.
+- `issue_date` and `due_date` are advanced by one month (rolling over the year when needed), keeping the `MM/dd/YYYY` format.
+- Any `Mon YYYY` occurrence in item descriptions (e.g. `Aug 2026`) is advanced by one month too (e.g. `Sep 2026`).
+- Everything else (items, notes, contractor, client, currency, etc.) is copied as is.
+
+If the `$EDITOR` environment variable is set, the new data file is opened in it automatically.
 
 ## Development
 
@@ -82,7 +97,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/clinvoice. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/andrewaguiar/clinvoice. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
@@ -90,4 +105,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the Clinvoice project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/clinvoice/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the Clinvoice project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/andrewaguiar/clinvoice/blob/master/CODE_OF_CONDUCT.md).

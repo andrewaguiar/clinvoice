@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'clinvoice/initialize_template'
+require 'clinvoice/generate_next_template'
 require 'clinvoice/generate_pdf'
 require 'clinvoice/version'
 
@@ -16,6 +17,8 @@ module Clinvoice
       Clinvoice::InitializeTemplate.call(file)
     when 'new'
       Clinvoice::GeneratePDF.call(file)
+    when 'next'
+      Clinvoice::GenerateNextTemplate.call(file)
     else
       show_usage_and_exit!
     end
@@ -27,6 +30,7 @@ module Clinvoice
 
         clinvoice init <datafile> # starts a new template with id 1 and empty entries.
         clinvoice new <filename> # generates a pdf invoice based on a data file `yml`.
+        clinvoice next <datafile> # generates the next data file `yml`, based on the last one.
 
       Args:
 
@@ -50,6 +54,15 @@ module Clinvoice
           `$ clinvoice new doge-client-1`
 
           This will create a `doge-client-1.pdf` file based on the data file `doge-client-1.yml`.
+
+        4 - Generate a next datafile
+
+          `$ clinvoice next doge-client`
+
+          This will create a `doge-client-2.yml` data file, based on the last data file: id is incremented,
+          `issue_date` and `due_date` are advanced by one month, and any "Mon YYYY" occurrences in item
+          descriptions (example: "Aug 2026") are advanced by one month too. Everything else is copied as is.
+          The new file is opened in $EDITOR, if set.
 
     USAGE
 
